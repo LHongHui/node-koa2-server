@@ -37,7 +37,7 @@ router.get('/index/carousels', async function (ctx) {
 		};
 	}
 })
- //查询当前用户所有收藏的商品：http://localhost:3000/items/goodsFavList
+ //查询当前用户所有收藏的商品
 
  router.get('/index/items/goodsFavList', async function (ctx) {
 	var userId =  ctx.request.query.token; 
@@ -225,7 +225,6 @@ function strToArray(str) {
 }
 // 通过购物车中的商品查找对应 数据库中的 goods商品信息
 //item/queryItems?itemIds='+itemIds
-// http://localhost:3000/item/queryItems?itemIds=5dca47d7dca4502bb823e36c,5dca12919078a521a0f3e275
 router.get('/item/queryItems', async function (ctx) {
 
 	var itemIds = ctx.request.query.itemIds; //转成二维数组
@@ -376,7 +375,6 @@ router.post('/address/createOrUpdate', async function (ctx) {
 })
 
 // POST-/address/fetch
-//http://localhost:3000/address/fetch?userId='+userId+'&addressId='+this.addressId
 // 查询地址
 router.get('/address/fetch', async function (ctx) {
 	var userId = ctx.request.query.userId;
