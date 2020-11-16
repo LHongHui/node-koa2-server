@@ -1,1 +1,0 @@
-db.address.insert({default_address:0,uid:"1100",name:"chao",phone:"13845676789",province:"河北",city:"石家庄",district:"长安区",addressInfo:"建材城西路50"});
