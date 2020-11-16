@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+	<!--The content below is only a placeholder and can be replaced.-->
+
+	<link rel="stylesheet" href="/css/bootstrap.css">
+
+	<link rel="stylesheet" href="/css/basic.css">
+
+	<script type="text/javascript" src="/js/jquery-1.12.4.min.js"></script>
+
+
+</head>
+
+<body>
+
+	<%- include('../public/header.html') %>
+
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-2">
+				<%- include('../public/left-menu.html') %>
+			</div>
+			<div class="col-sm-10">
+
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<a href="/admin/goods/add" class="btn btn-primary">增加商品</a>
+					</div>
+
+
+					<div class="panel-body">
+						<form role="form" class="form-inline" method="get" action="/admin/goods">
+							<div class="form-group">
+								<label for="name">输入关键词</label>
+								<input type="text" class="form-control" value="<%=keyword%>" id="name" name="keyword"
+									placeholder="请输入名称">
+							</div>
+
+							<div class="form-group">
+								<button type="submit" class="btn btn-default">开始搜索</button>
+							</div>
+						</form>
+					</div>
+				</div>
+
+				<table class="table table-bordered">
+					<thead>
+						<tr>
+							<th class="text-center" width="220">名称</th>
+							<th class="text-center">分类名称</th>
+							<th class="text-center">图像</th>
+							<th class="text-center">新品</th>
+							<th class="text-center">热卖</th>
+							<th class="text-center">精品</th>
+							<th class="text-center">排序</th>
+							<th class="text-center">状态</th>
+							<th class="text-center">创建时间</th>
+							<th class="text-center">操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						<%for(var i=0;i<data.length;i++){%>
+						<tr>
+							<td><%=data[i].title%></td>
+							<td><%=data[i].catelist[0].title%></td>
+							<td><img src="/<%=data[i].goods_cover%>" width="120"></td>
+							<td class="text-center">
+								<%if(data[i].is_new==1){%>
+								<img src="/images/yes.gif" alt=""
+									onclick="app.toggle(this,'goods','is_new','<%=data[i]._id%>')">
+								<%}else{%>
+								<img src="/images/no.gif" alt=""
+									onclick="app.toggle(this,'goods','is_new','<%=data[i]._id%>')">
+								<%}%>
+									</td>
+									<td class="text-center">
+										<%if(data[i].is_hot==1){%>
+								<img src="/images/yes.gif" alt=""
+									onclick="app.toggle(this,'goods','is_hot','<%=data[i]._id%>')">
+								<%}else{%>
+								<img src="/images/no.gif" alt=""
+									onclick="app.toggle(this,'goods','is_hot','<%=data[i]._id%>')">
+								<%}%>
+									</td>
+									<td class="text-center">
+										<%if(data[i].is_best==1){%>
+								<img src="/images/yes.gif" alt=""
+									onclick="app.toggle(this,'goods','is_best','<%=data[i]._id%>')">
+								<%}else{%>
+								<img src="/images/no.gif" alt=""
+									onclick="app.toggle(this,'goods','is_best','<%=data[i]._id%>')">
+								<%}%>
+									</td>
+
+									<td width="150"><span onclick="app.editNum(this,'goods','sort','<%=data[i]._id%>')"><%=data[i].sort%></span>
+							</td>
+							<td class="text-center">
+								<%if(data[i].status==1){%>
+								<img src="/images/yes.gif" alt=""
+									onclick="app.toggle(this,'goods','status','<%=data[i]._id%>')">
+								<%}else{%>
+								<img src="/images/no.gif" alt=""
+									onclick="app.toggle(this,'goods','status','<%=data[i]._id%>')">
+								<%}%>
+									</td>
+									<td><%=sd.format(data[i].add_time,'YYYY-MM-DD HH:mm')%></td>
+							<td>
+								<a href="/admin/goods/edit?_id=<%=data[i]._id%>" class="btn btn-primary btn-xs">修改</a>
+								<a href="/admin/del?collection=goods&_id=<%=data[i]._id%>"
+									class="btn btn-danger btn-xs">删除</a>
+							</td>
+						</tr>
+						<%}%>
+						    <tr>
+						    	<td colspan="10" class="text-center"><div id="page" class="pagination"></div></td>
+						    </tr>
+						</tbody>
+					</table>
+		        </div>
+		    </div>
+		</div>
+		<script type="text/javascript" src="/js/base.js"></script>
+		<script src="/js/jqPaginator.js"></script>
+		<script>
+			$('#page').jqPaginator({
+				totalPages: <%=totalPages%>,
+				visiblePages: 3,
+				currentPage: <%=page %>,
+				onPageChange: function (num, type) {
+					console.log('当前第' + num + '页', type);
+
+					if (type == 'change') {
+
+						location.href = "/admin/goods?page=" + num + "&keyword=<%=keyword%>";
+					}
+				}
+						});
+		</script>
+</body>
+
+</html>
