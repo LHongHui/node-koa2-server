@@ -2,8 +2,8 @@
 var mongoose=require('mongoose'); // mongodb
 
 //useNewUrlParser这个属性会在url里识别验证用户所需的db,未升级前是不需要指定的,升级到一定要指定。
-//mongoose.connect('mongodb://127.0.0.1:27017/myshop',{ useNewUrlParser: true },function(err){
-mongoose.connect('mongodb://127.0.0.1:27017/myshop',{ useNewUrlParser: true },function(err){
+//mongoose.connect('*******************',{ useNewUrlParser: true },function(err){
+mongoose.connect('***************************',{ useNewUrlParser: true },function(err){
 
 	if(err){
 	
